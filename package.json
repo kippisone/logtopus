@@ -1,0 +1,20 @@
+{
+  "name": "logtopus",
+  "version": "0.0.0",
+  "description": "Powerful console logger",
+  "main": "logtopus.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "ssh://git@kallisto/~/logtopus.git"
+  },
+  "keywords": [
+    "log",
+    "logger",
+    "logtopus"
+  ],
+  "author": "Andi Heinkelein <andi.oxidant@noname-media.com>",
+  "license": "MIT"
+}
