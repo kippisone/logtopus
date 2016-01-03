@@ -8,14 +8,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "ssh://git@kallisto/~/logtopus.git"
+    "url": "git@github.com:Andifeind/logtopus.git"
   },
   "keywords": [
     "log",
     "logger",
     "logtopus"
   ],
-  "author": "Andi Heinkelein <andi.oxidant@noname-media.com>",
+  "author": "Andi Heinkelein <andifeind@noname-media.com>",
   "license": "MIT",
   "devDependencies": {
     "grunt": "^0.4.5",
