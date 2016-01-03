@@ -244,7 +244,7 @@ logtopus.__express = function(req, res, next) {
         res.removeListener('close', LogIt);
         res.removeListener('error', LogIt);
 
-        var reqLog = logger.msg(req.method + ' ' + req.path),
+        var reqLog = logtopus.msg(req.method + ' ' + req.path),
             dataLog;
 
         //Status code
