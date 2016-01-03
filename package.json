@@ -16,5 +16,9 @@
     "logtopus"
   ],
   "author": "Andi Heinkelein <andi.oxidant@noname-media.com>",
-  "license": "MIT"
+  "license": "MIT",
+  "devDependencies": {
+    "grunt": "^0.4.5",
+    "grunt-release": "^0.13.0"
+  }
 }
