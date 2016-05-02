@@ -1,11 +1,11 @@
 'use strict';
 
-var ConsoleLogger = require('./lib/consoleLogger');
+let ConsoleLogger = require('./lib/consoleLogger');
 
-var consoleLogger = new ConsoleLogger();
+let consoleLogger = new ConsoleLogger();
 
-var logtopus = function() {
-    
+let logtopus = function(conf) {
+    return new Logtopus(conf);
 };
 
 logtopus.__logger = {};
@@ -45,7 +45,7 @@ logtopus.addLogger = function(logger) {
 logtopus.removeLogger = function(loggerName) {
     if (loggerName && this.__logger[loggerName]) {
         delete this.__logger[loggerName];
-    }   
+    }
 };
 
 /**
@@ -103,7 +103,7 @@ logtopus.log = function(type) {
         curLevel = this.__logLevels.info;
         level = 'info';
     }
-    
+
     if (curLevel && curLevel <= this.__curLogLevel) {
         for (var key in this.__logger) {
             var loggerObj = this.__logger[key];
