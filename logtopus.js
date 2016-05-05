@@ -1,11 +1,6 @@
 'use strict';
 
-let ConsoleLogger = require('./lib/consoleLogger');
-
-let consoleLogger = new ConsoleLogger();
-
 let logtopus = function(conf) {
-    return new Logtopus(conf);
 };
 
 logtopus.__logger = {};
@@ -285,6 +280,22 @@ logtopus.__express = function(req, res, next) {
     next();
 };
 
-logtopus.addLogger(consoleLogger);
+/* +-------- N E W L O G G E R -------------------+ */
 
+let Logtopus = require('./lib/logtopus');
+let ConsoleLogger = require('./lib/consoleLogger');
+
+let consoleLogger = new ConsoleLogger();
+
+
+
+let loggerStorage = {};
 module.exports = logtopus;
+module.exports.getLogger = function(name) {
+    if (!loggerStorage[name]) {
+        loggerStorage[name] = new Logtopus();
+        loggerStorage[name].addLogger(consoleLogger);
+    }
+
+    return loggerStorage[name];
+};
