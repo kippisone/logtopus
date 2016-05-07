@@ -1,11 +1,8 @@
 'use strict';
 
-let ConsoleLogger = require('./lib/consoleLogger');
-
-let consoleLogger = new ConsoleLogger();
+let cl = require('./colorfy');
 
 let logtopus = function(conf) {
-    return new Logtopus(conf);
 };
 
 logtopus.__logger = {};
@@ -237,18 +234,18 @@ logtopus.getLevel = function() {
  * Express middleware
  */
 logtopus.__express = function(req, res, next) {
-    var startTime = Date.now();
+    let startTime = Date.now();
 
-    var LogIt = function() {
-        res.removeListener('finish', LogIt);
-        res.removeListener('close', LogIt);
-        res.removeListener('error', LogIt);
+    let logFn = function() {
+        res.removeListener('finish', logFn);
+        res.removeListener('close', logFn);
+        res.removeListener('error', logFn);
 
-        var reqLog = logger.msg(req.method + ' ' + req.path),
-            dataLog;
+        let reqLog = cl.lime(req.method).grey(req.path);
+        let dataLog;
 
         //Status code
-        var statusCodeColor = 'dgrey';
+        let statusCodeColor = 'dgrey';
         if (res.statusCode >= 400) {
             statusCodeColor = 'red';
         }
@@ -257,7 +254,7 @@ logtopus.__express = function(req, res, next) {
         reqLog.msg(statusCodeColor, res.statusCode);
 
         //Calculate parse time
-        var parseTime = Date.now() - startTime,
+        let parseTime = Date.now() - startTime,
             parseTimeColor = 'grey';
 
         if (parseTime > 99) {
@@ -278,13 +275,29 @@ logtopus.__express = function(req, res, next) {
         }
     };
 
-    res.on('finish', LogIt);
-    res.on('close', LogIt);
-    res.on('error', LogIt);
+    res.on('finish', logFn);
+    res.on('close', logFn);
+    res.on('error', logFn);
 
     next();
 };
 
-logtopus.addLogger(consoleLogger);
+/* +-------- N E W L O G G E R -------------------+ */
 
+let Logtopus = require('./lib/logtopus');
+let ConsoleLogger = require('./lib/consoleLogger');
+
+let consoleLogger = new ConsoleLogger();
+
+
+
+let loggerStorage = {};
 module.exports = logtopus;
+module.exports.getLogger = function(name) {
+    if (!loggerStorage[name]) {
+        loggerStorage[name] = new Logtopus();
+        loggerStorage[name].addLogger(consoleLogger);
+    }
+
+    return loggerStorage[name];
+};

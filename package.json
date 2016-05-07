@@ -18,7 +18,7 @@
   "author": "Andi Heinkelein <andi.oxidant@noname-media.com>",
   "license": "MIT",
   "devDependencies": {
-    "inspect.js": "^0.1.0",
+    "inspect.js": "^0.1.1",
     "mocha": "^2.4.5",
     "sinon": "^1.17.4"
   },
