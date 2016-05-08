@@ -139,13 +139,17 @@ describe('Logtopus', function() {
       inspect(logger.log).wasCalledWith({
         type: 'test',
         msg: 'Test message',
-        data: [{ foo: 'bar' }]
+        data: [{ foo: 'bar' }],
+        time: sinon.match.number,
+        uptime: sinon.match.number
       });
 
       inspect(logger2.log).wasCalledWith({
         type: 'test',
         msg: 'Test message',
-        data: [{ foo: 'bar' }]
+        data: [{ foo: 'bar' }],
+        time: sinon.match.number,
+        uptime: sinon.match.number
       });
     });
   });
@@ -169,7 +173,9 @@ describe('Logtopus', function() {
       inspect(logger.log).wasCalledWith({
         type: 'debug',
         msg: 'Debug message',
-        data: [{ foo: 'bar' }]
+        data: [{ foo: 'bar' }],
+        time: sinon.match.number,
+        uptime: sinon.match.number
       });
     });
 
@@ -204,7 +210,9 @@ describe('Logtopus', function() {
       inspect(logger.log).wasCalledWith({
         type: 'info',
         msg: 'Info message',
-        data: [{ foo: 'bar' }]
+        data: [{ foo: 'bar' }],
+        time: sinon.match.number,
+        uptime: sinon.match.number
       });
     });
 
@@ -239,7 +247,9 @@ describe('Logtopus', function() {
       inspect(logger.log).wasCalledWith({
         type: 'res',
         msg: 'Response message',
-        data: [{ foo: 'bar' }]
+        data: [{ foo: 'bar' }],
+        time: sinon.match.number,
+        uptime: sinon.match.number
       });
     });
 
@@ -274,7 +284,9 @@ describe('Logtopus', function() {
       inspect(logger.log).wasCalledWith({
         type: 'req',
         msg: 'Request message',
-        data: [{ foo: 'bar' }]
+        data: [{ foo: 'bar' }],
+        time: sinon.match.number,
+        uptime: sinon.match.number
       });
     });
 
@@ -309,7 +321,9 @@ describe('Logtopus', function() {
       inspect(logger.log).wasCalledWith({
         type: 'sys',
         msg: 'System log message',
-        data: [{ foo: 'bar' }]
+        data: [{ foo: 'bar' }],
+        time: sinon.match.number,
+        uptime: sinon.match.number
       });
     });
 
@@ -344,7 +358,9 @@ describe('Logtopus', function() {
       inspect(logger.log).wasCalledWith({
         type: 'warn',
         msg: 'Warning message',
-        data: [{ foo: 'bar' }]
+        data: [{ foo: 'bar' }],
+        time: sinon.match.number,
+        uptime: sinon.match.number
       });
     });
 
@@ -379,7 +395,9 @@ describe('Logtopus', function() {
       inspect(logger.log).wasCalledWith({
         type: 'error',
         msg: 'Error message',
-        data: [{ foo: 'bar' }]
+        data: [{ foo: 'bar' }],
+        time: sinon.match.number,
+        uptime: sinon.match.number
       });
     });
 
