@@ -1,0 +1,3 @@
+'fileLogger':
+  'enabled': true
+  'file': 'log/logtopus.log'
