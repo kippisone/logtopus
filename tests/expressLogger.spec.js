@@ -6,7 +6,7 @@ inspect.useSinon(sinon);
 
 let logtopus = require('../logtopus');
 
-describe.only('ExpressLogger', function() {
+describe('ExpressLogger', function() {
   describe('middleware', function() {
     it('Should return an express middleware', function() {
       inspect(logtopus.express()).isFunction();
