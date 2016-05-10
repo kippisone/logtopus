@@ -6,7 +6,7 @@ let ConsoleLogger = require('./lib/consoleLogger');
 
 let consoleLogger = new ConsoleLogger();
 let superconf = require('superconf');
-let conf = superconf('logtopus');
+let conf = superconf('logtopus') || {};
 
 
 let loggerStorage = {};
@@ -35,4 +35,14 @@ module.exports.getLogger = function(name) {
 */
 module.exports.express = function(conf) {
   return require('./lib/plugins/expressLogger')(conf);
+}
+
+
+/**
+* Returns an koa middleware
+* @param  {object} conf Logger configuration
+* @return {function}      Returns a koa middleware
+*/
+module.exports.koa = function(conf) {
+  return require('./lib/plugins/koaLogger')(conf);
 }
