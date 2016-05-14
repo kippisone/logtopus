@@ -81,4 +81,4 @@ logtopus.error('Error log', null);
 logtopus.error('Error log', true);
 logtopus.error('Error log', false);
 logtopus.error('Error log', undefined);
-logtopus.error('Error log with funy chars \n \r \u2345 \xff \0 \b\b\b', undefined);
+logtopus.error('Error log with funy chars \n \r \0 \b\b\b', undefined);
