@@ -22,7 +22,7 @@ app.put('/test', function(req, res) {
   res.status(500).end();
 });
 
-app.del('/test', function(req, res) {
+app.delete('/test', function(req, res) {
   res.send('Success!');
 });
 
@@ -41,3 +41,9 @@ supertest(app).put('/test?bla=blubb').end(function(err, res) {
 supertest(app).del('/test?bla=blubb').end(function(err, res) {
 
 });
+
+setTimeout(() => {
+  logtopus.flush().then(function() {
+    console.log('DONE');
+  });
+}, 100);
