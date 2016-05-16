@@ -6,10 +6,12 @@ let ConsoleLogger = require('./lib/consoleLogger');
 
 let consoleLogger = new ConsoleLogger();
 let superconf = require('superconf');
+let superimport = require('superimport');
 let conf = superconf('logtopus') || {};
 
-if (process.env.LOGTOPUS_DEBUG) {
-  console.log('[LOGTOPUS CONF]', conf);
+let debugEnabled = !!process.env.LOGTOPUS_DEBUG;
+if (debugEnabled) {
+  console.log('[LOGTOPUS]', 'Configuration:', conf);
 }
 
 let loggerStorage = {};
@@ -18,27 +20,44 @@ module.exports.getLogger = function(name) {
     loggerStorage[name] = new Logtopus(conf, name);
     loggerStorage[name].addLogger(consoleLogger);
 
-    if (conf.fileLogger && conf.fileLogger.enabled === true) {
-      let FileLogger = require('./lib/fileLogger');
-      let fileLogger = new FileLogger(Object.assign({
-        file: path.resolve(process.cwd(), conf.fileLogger.file)
-      }, conf.fileLogger), name);
+    for (let loggerName of Object.keys(conf)) {
+      if (debugEnabled) {
+        console.log('[LOGTOPUS]', `Load ${loggerName} plugin`);
+      }
 
-      loggerStorage[name].addLogger(fileLogger);
-    }
+      if (loggerName === 'fileLogger' && conf.fileLogger.enabled === true) {
+        let FileLogger = require('./lib/fileLogger');
+        let fileLogger = new FileLogger(Object.assign({
+          file: path.resolve(process.cwd(), conf.fileLogger.file)
+        }, conf.fileLogger), name);
 
-    if (conf.redisLogger && conf.redisLogger.enabled === true) {
-      let RedisLogger = require('./lib/redisLogger');
-      let redisLogger = new RedisLogger(conf.redisLogger, name);
+        loggerStorage[name].addLogger(fileLogger);
+        continue;
+      }
 
-      loggerStorage[name].addLogger(redisLogger);
-    }
+      if (loggerName === 'consoleLogger') {
+        continue;
+      }
 
-    if (conf.influxLogger && conf.influxLogger.enabled === true) {
-      let InfluxLogger = require('./lib/influxLogger');
-      let influxLogger = new InfluxLogger(conf.influxLogger, name);
+      let Logger;
+      let moduleName;
+      try {
+        moduleName = 'logtopus-' + loggerName.replace(/[A-Z]/g, (match => '-' + match.toLowerCase()));
+        Logger = superimport(moduleName);
+      } catch(err) {
+        let cf = require('colorfy');
+        if (['redisLogger', 'influxLogger', 'mongodbLogger'].indexOf(loggerName) === -1) {
+          console.warn(cf().orange('warn:').txt('Could not load ' + moduleName + '! Plugin is not installed or configuration is wrong!').colorfy(!!process.stdout.isTTY));
+        }
+        else {
+          console.warn(cf().orange('warn:').txt(err.message).colorfy(!!process.stdout.isTTY));
+        }
 
-      loggerStorage[name].addLogger(influxLogger);
+        continue;
+      }
+
+      let loggerInstance = new Logger(conf[loggerName], name);
+      loggerStorage[name].addLogger(loggerInstance);
     }
   }
 

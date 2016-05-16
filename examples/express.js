@@ -26,24 +26,27 @@ app.delete('/test', function(req, res) {
   res.send('Success!');
 });
 
-supertest(app).get('/test?bla=blubb').end(function(err, res) {
-
-});
-
-supertest(app).post('/test/add').end(function(err, res) {
-
-});
-
-supertest(app).put('/test?bla=blubb').end(function(err, res) {
-
-});
-
-supertest(app).del('/test?bla=blubb').end(function(err, res) {
-
-});
-
 setTimeout(() => {
-  logtopus.flush().then(function() {
-    console.log('DONE');
+  supertest(app).get('/test?bla=blubb').end(function(err, res) {
+
   });
-}, 100);
+
+  supertest(app).post('/test/add').end(function(err, res) {
+
+  });
+
+  supertest(app).put('/test?bla=blubb').end(function(err, res) {
+
+  });
+
+  supertest(app).del('/test?bla=blubb').end(function(err, res) {
+
+  });
+
+  setTimeout(() => {
+    logtopus.flush().then(function() {
+      console.log('DONE');
+    });
+  }, 100);
+
+}, 200)

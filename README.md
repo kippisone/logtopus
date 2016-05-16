@@ -5,6 +5,8 @@ Logtopus is a powerful logger for node.js with different transports
 
 * Console logger, logs output to the console, supports ANSI colors
 * File logger, logs output to a log file
+* Redis logger, logs to a redis db
+* Influx logger, logs to a influx db
 
 ## Usage
 
