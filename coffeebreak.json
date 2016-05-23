@@ -3,6 +3,5 @@
     "browser": false,
     "libs": "",
     "files": "lib/**.js",
-    "tests": "tests/*.spec.js",
-    "watch": ""
+    "tests": "tests/*.spec.js"
 }

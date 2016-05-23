@@ -20,7 +20,7 @@
   "devDependencies": {
     "express": "^4.13.4",
     "inspect.js": "^0.1.1",
-    "mocha": "^2.4.5",
+    "mocha": "^2.5.1",
     "sinon": "^1.17.4",
     "supertest": "^1.2.0"
   },
@@ -30,6 +30,7 @@
     "influx": "^4.2.0",
     "mkdirp": "^0.5.1",
     "pretty-time": "^0.2.0",
+    "redis": "^2.5.3",
     "superconf": "^0.1.0"
   }
 }
