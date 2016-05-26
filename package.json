@@ -13,7 +13,13 @@
   "keywords": [
     "log",
     "logger",
-    "logtopus"
+    "logtopus",
+    "logging",
+    "logs",
+    "filelogger",
+    "consolelogger",
+    "console",
+    "timer"
   ],
   "author": "Andi Heinkelein <andifeind@noname-media.com>",
   "license": "MIT",
