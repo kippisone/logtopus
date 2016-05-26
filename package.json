@@ -31,6 +31,7 @@
     "mkdirp": "^0.5.1",
     "pretty-time": "^0.2.0",
     "redis": "^2.5.3",
-    "superconf": "^0.1.0"
+    "superconf": "^0.1.0",
+    "superimport": "^0.1.0"
   }
 }
