@@ -1,18 +1,23 @@
 Logtopus
---------
+========
 
-Logtopus is a powerful logger for node.js
+Logtopus is a powerful logger for node.js with different transports
 
-#Usage
+* Console logger, logs output to the console, supports ANSI colors
+* File logger, logs output to a log file
+* Redis logger, logs to a redis db
+* Influx logger, logs to a influx db
+
+## Usage
 
 ```js
-    var log = require('logtopus');
-    log.setLevel('sys');
+let log = require('logtopus').getLogger('mylogger');
+log.setLevel('sys');
 
-    log.warn('My beer is nearly finish!');
+log.warn('My beer is nearly finish!');
 ```
 
-## Log levels
+### Log levels
 
     debug    development  Logs debugging informations
     info     development  Helpful during development
@@ -22,8 +27,8 @@ Logtopus is a powerful logger for node.js
     warn     production   Logs warnings
     error    production   Logs errors
 
-For example, setting log level to `req` includes these log levels: `req`, `sys`, `warn`, `error` 
-Setting log level to `debug` means all log levels will be logged and
+For example, setting log level to `req` includes these log levels: `req`, `sys`, `warn`, `error`
+Setting log level to `debug` means all log levels are activated
 log level `error` logs errors only.
 
 Example:
@@ -46,3 +51,46 @@ sys: Request done!
 warn: Request was unauthorized!
 error: An error has been occurred!
 ```
+
+### Express logger
+
+Logtopus comes with a logger for Express/Connect.
+
+`logtopus.express()` returns a middleware for Express/Connect. It acepts an optional options object
+
+```
+let express = require('express');
+let logtopus = require('../logtopus');
+
+let app = express();
+
+app.use(logtopus.express({
+  logLevel: 'debug'
+}));
+```
+
+#### Options
+
+`logLevel` Sets current log level
+
+
+### Koa logger
+
+Logtopus also supports Koa
+
+`logtopus.koa()` returns a middleware for Koa. It acepts an optional options object
+
+```
+let koa = require('koa');
+let logtopus = require('../logtopus');
+
+let app = koa();
+
+app.use(logtopus.koa({
+  logLevel: 'debug'
+}));
+```
+
+#### Options
+
+`logLevel` Sets current log level
