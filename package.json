@@ -1,6 +1,6 @@
 {
   "name": "logtopus",
-  "version": "0.0.0",
+  "version": "0.2.0",
   "description": "Powerful console logger",
   "main": "logtopus.js",
   "scripts": {
@@ -8,14 +8,20 @@
   },
   "repository": {
     "type": "git",
-    "url": "ssh://git@kallisto/~/logtopus.git"
+    "url": "git@github.com:Andifeind/logtopus.git"
   },
   "keywords": [
     "log",
     "logger",
-    "logtopus"
+    "logtopus",
+    "logging",
+    "logs",
+    "filelogger",
+    "consolelogger",
+    "console",
+    "timer"
   ],
-  "author": "Andi Heinkelein <andi.oxidant@noname-media.com>",
+  "author": "Andi Heinkelein <andifeind@noname-media.com>",
   "license": "MIT",
   "devDependencies": {
     "express": "^4.13.4",
