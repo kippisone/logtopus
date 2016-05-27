@@ -1,7 +1,7 @@
 {
   "name": "logtopus",
   "version": "0.2.0",
-  "description": "Powerful console logger",
+  "description": "Powerful logger for Node.js",
   "main": "logtopus.js",
   "scripts": {
     "test": "mocha --recursive tests/*.spec.js"
