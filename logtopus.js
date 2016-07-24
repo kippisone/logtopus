@@ -11,7 +11,7 @@ let conf = superconf('logtopus') || {};
 
 let debugEnabled = !!process.env.LOGTOPUS_DEBUG;
 if (debugEnabled) {
-  console.log('[LOGTOPUS]', 'Configuration:', conf);
+  console.log('[LOGTOPUS]', 'Configuration:', conf); // eslint-disable-line
 }
 
 let loggerStorage = {};
@@ -22,7 +22,7 @@ module.exports.getLogger = function(name) {
 
     for (let loggerName of Object.keys(conf)) {
       if (debugEnabled) {
-        console.log('[LOGTOPUS]', `Load ${loggerName} plugin`);
+        console.log('[LOGTOPUS]', `Load ${loggerName} plugin`); // eslint-disable-line
       }
 
       if (loggerName === 'fileLogger' && conf.fileLogger.enabled === true) {
@@ -45,13 +45,7 @@ module.exports.getLogger = function(name) {
         moduleName = 'logtopus-' + loggerName.replace(/[A-Z]/g, (match => '-' + match.toLowerCase()));
         Logger = superimport(moduleName);
       } catch(err) {
-        let cf = require('colorfy');
-        if (['redisLogger', 'influxLogger', 'mongodbLogger'].indexOf(loggerName) === -1) {
-          console.warn(cf().orange('warn:').txt('Could not load ' + moduleName + '! Plugin is not installed or configuration is wrong!').colorfy(!!process.stdout.isTTY));
-        }
-        else {
-          console.warn(cf().orange('warn:').txt(err.message).colorfy(!!process.stdout.isTTY));
-        }
+        // ignore errors
 
         continue;
       }
