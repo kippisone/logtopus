@@ -1,5 +1,5 @@
 {
-    extends: "eslint:recommended",
+    extends: "standard",
     "env": {
         "node": true,
         "mocha": true,
@@ -7,11 +7,6 @@
     },
     "rules": {
         "no-console": 1,
-        "no-unused-vars": [2, {"vars": "all", "args": "none"}],
-        # "no-console": [2, {"allow": ["warn", "error"]}],
-        "no-constant-condition": 0
-    },
-    "globals": {
-        "expect": true
+        "no-unused-vars": [2, {"vars": "all", "args": "none"}]
     }
 }
