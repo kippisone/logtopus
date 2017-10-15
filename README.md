@@ -3,16 +3,25 @@ Logtopus
 
 Logtopus is a powerful logger for node.js with different transports
 
-* Console logger, logs output to the console, supports ANSI colors
-* File logger, logs output to a log file
-* Redis logger, logs to a redis db
-* Influx logger, logs to a influx db
+Built in logger:
+* Console logger using [logtopus-console-logger](https://npmjs.org/packages/logtopus-console-logger)
+* File logger using [logtopus-file-logger](https://npmjs.org/packages/logtopus-file-logger)
+
+Additional logger:
+* Redis logger see [logtopus-redis-logger](https://npmjs.org/packages/logtopus-redis-logger)
+* InfluxDB logger use [logtopus-influx-logger](https://npmjs.org/packages/logtopus-influx-logger)
+* MongoDB logger use [logtopus-mongo-logger](https://npmjs.org/packages/logtopus-mongo-logger)
 
 ## Usage
 
 ```js
-let log = require('logtopus').getLogger('mylogger');
+let log = require('logtopus').getLogger('mylogger', loggerConf);
 log.setLevel('sys');
+log.config({
+  console: {
+    colors: true
+  }
+})
 
 log.warn('My beer is nearly finish!');
 ```
@@ -94,3 +103,22 @@ app.use(logtopus.koa({
 #### Options
 
 `logLevel` Sets current log level
+
+### Logger API
+
+A `ConsoleLogger` instance knows two public methods. The `.log()` method is a syncron method, it adds a log statement. The logs will be written to `STDOUT` for all levels, or `STDERR` if log type is `error`
+
+```js
+const logger = new ConsoleLogger({
+
+})
+
+logger.log({
+  type: 'info',
+  msg: 'Log message',
+  data: [
+    123,
+    { foo: 'bar' }
+  ]
+})
+```
