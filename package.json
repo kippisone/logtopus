@@ -40,6 +40,7 @@
     "pretty-time": "^0.2.0",
     "redis": "^2.8.0",
     "superconf": "^1.0.1",
-    "superimport": "^1.0.1"
+    "superimport": "^1.0.1",
+    "supertime": "^1.0.0"
   }
 }
