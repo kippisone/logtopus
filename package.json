@@ -24,19 +24,12 @@
   "author": "Andi Heinkelein <andifeind@noname-media.com>",
   "license": "MIT",
   "devDependencies": {
-<<<<<<< HEAD
     "@noname-media/eslint-config-standard": "^1.1.0",
     "express": "^4.16.2",
     "inspect.js": "^1.9.0",
     "lagoon-reporter": "^0.3.4",
     "mocha": "^4.0.1",
     "sinon": "^4.0.1",
-=======
-    "express": "^4.15.4",
-    "inspect.js": "^1.8.0",
-    "mocha": "^3.5.3",
-    "sinon": "^3.3.0",
->>>>>>> 0cad564cc4f1512ef31b2be2d34ce35bef4ffd07
     "supertest": "^3.0.0"
   },
   "dependencies": {
@@ -45,11 +38,7 @@
     "influx": "^5.0.7",
     "mkdirp": "^0.5.1",
     "pretty-time": "^0.2.0",
-<<<<<<< HEAD
     "redis": "^2.8.0",
-=======
-    "redis": "2.6.2",
->>>>>>> 0cad564cc4f1512ef31b2be2d34ce35bef4ffd07
     "superconf": "^1.0.1",
     "superimport": "^1.0.1"
   }
