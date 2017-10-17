@@ -8,10 +8,9 @@ const log = logtopus.getLogger('express')
 const uid = require('gen-uid')
 
 module.exports = function (conf) {
-  if (conf) {
-    if (conf.logLevel) {
-      log.setLevel(conf.logLevel)
-    }
+  conf = conf || {}
+  if (conf.logLevel) {
+    log.setLevel(conf.logLevel)
   }
 
   return function LogtopusExpressLogger (req, res, next) {
@@ -22,7 +21,7 @@ module.exports = function (conf) {
       .auto(req.requestId)
       .lime(req.method)
       .grey(req.originalUrl)
-    log.req(reqLog)
+    log.req(reqLog.colorfy(!conf.noColor))
 
     let logFn = function () {
       const parseTime = timer.stop()
@@ -53,7 +52,7 @@ module.exports = function (conf) {
         resLog.grey('(').green(parseTime.toString(), 'trim').grey(')')
       }
 
-      log.res(resLog)
+      log.res(resLog.colorfy(!conf.noColor))
     }
 
     res.on('finish', logFn)

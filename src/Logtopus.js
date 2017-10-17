@@ -186,9 +186,9 @@ class Logtopus {
       msg._text = msg.text.concat()
       msgPlain = msg.colorfy(false)
       msg.text = msg._text
-      msgColorfied = msg.colorfy()
+      msgColorfied = msg.colorfy(true)
     } else {
-      msgPlain = msg
+      msgPlain = msg.replace(/\u001b\[(\d+;)*\d*m/g, '')
       msgColorfied = msg
     }
 
@@ -201,7 +201,8 @@ class Logtopus {
 
       logger.log({
         type: type,
-        msg: logger.isTTY ? msgColorfied : msgPlain,
+        msg: msgPlain,
+        cmsg: msgColorfied,
         data: args,
         time: time,
         uptime: uptime

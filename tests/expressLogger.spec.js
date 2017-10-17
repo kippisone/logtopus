@@ -46,8 +46,9 @@ describe('Express plugin', () => {
       const fn = logtopus.express()
       fn(fakeReq, fakeRes, () => {
         fakeRes.on.firstCall.yield()
-        inspect(loggerStub).wasCalledOnce()
-        inspect(loggerStub).wasCalledWith('req', {})
+        inspect(loggerStub).wasCalledTwice()
+        inspect(loggerStub).wasCalledWith('req', sinon.match.string)
+        inspect(loggerStub).wasCalledWith('res', sinon.match.string)
         done()
       })
     })
