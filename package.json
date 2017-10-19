@@ -33,9 +33,11 @@
     "supertest": "^3.0.0"
   },
   "dependencies": {
-    "colorfy": "^0.5.0",
+    "colorfy": "^1.0.0",
     "gen-uid": "0.0.2",
     "influx": "^5.0.7",
+    "logtopus-console-logger": "^0.1.0",
+    "logtopus-file-logger": "^0.1.0",
     "mkdirp": "^0.5.1",
     "pretty-time": "^0.2.0",
     "redis": "^2.8.0",

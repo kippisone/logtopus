@@ -1,6 +1,8 @@
 Logtopus
 ========
 
+[![Build Status](https://travis-ci.org/Andifeind/logtopus-console-logger.svg?branch=develop)](https://travis-ci.org/Andifeind/logtopus)
+
 Logtopus is a powerful logger for node.js with different transports
 
 Built in logger:
