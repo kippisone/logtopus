@@ -13,15 +13,22 @@ describe('Express plugin', () => {
   let sandbox
 
   beforeEach(() => {
+    sandbox = sinon.sandbox.create()
+
     fakeReq = {
 
     }
 
     fakeRes = {
-
+      on: sandbox.stub(),
+      removeListener: sandbox.stub(),
+      statusCode: 200,
+      statusMessage: 'OK',
+      get: sandbox.stub()
     }
 
-    sandbox = sinon.sandbox.create()
+    fakeRes.get.withArgs('Content-Type').returns('application/json')
+    fakeRes.get.withArgs('Content-Length').returns('2')
     loggerStub = sandbox.stub(logtopus.getLogger('express'), 'writeLog')
   })
 
@@ -38,6 +45,7 @@ describe('Express plugin', () => {
     it('logs a request', (done) => {
       const fn = logtopus.express()
       fn(fakeReq, fakeRes, () => {
+        fakeRes.on.firstCall.yield()
         inspect(loggerStub).wasCalledOnce()
         inspect(loggerStub).wasCalledWith('req', {})
         done()

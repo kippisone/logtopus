@@ -57,6 +57,7 @@ class LogtopusModule {
 }
 
 module.exports = LogtopusModule
+module.exports.Logtopus = Logtopus
 
 module.exports.XgetLogger = function (name) {
   if (!loggerStorage[name]) {
