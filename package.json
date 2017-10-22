@@ -25,6 +25,7 @@
   "license": "MIT",
   "devDependencies": {
     "@noname-media/eslint-config-standard": "^1.1.0",
+    "co": "^4.6.0",
     "express": "^4.16.2",
     "inspect.js": "^1.9.0",
     "lagoon-reporter": "^0.3.4",
@@ -37,8 +38,6 @@
     "gen-uid": "0.0.2",
     "logtopus-console-logger": "^0.1.0",
     "logtopus-file-logger": "^0.1.0",
-    "mkdirp": "^0.5.1",
-    "pretty-time": "^0.2.0",
     "superconf": "^1.0.1",
     "superimport": "^1.0.1",
     "supertime": "^1.0.0"
