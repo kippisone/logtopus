@@ -2,9 +2,7 @@
 
 const path = require('path')
 const Logtopus = require('./src/Logtopus')
-const ConsoleLogger = require('./lib/consoleLogger')
 
-const consoleLogger = new ConsoleLogger()
 const superconf = require('superconf')
 const superimport = require('superimport')
 

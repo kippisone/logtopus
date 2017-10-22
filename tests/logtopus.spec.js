@@ -3,7 +3,7 @@ const sinon = require('sinon')
 inspect.useSinon(sinon)
 
 const Logtopus = require('../src/Logtopus')
-const FakeLogger = require('./fixtures/FakeLogger')
+const FakeLogger = require('./fixtures/fakeLogger')
 
 describe('Logtopus', () => {
   beforeEach(() => {
