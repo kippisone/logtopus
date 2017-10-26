@@ -15,7 +15,7 @@ describe('Logtopus', () => {
       const logger = new Logtopus({})
       logger.setLevel('info')
       const fakeLogger = new FakeLogger()
-      logger.addLogger(fakeLogger)
+      logger.__logger.set('fakeLogger', fakeLogger)
 
       logger.writeLog('info', 'Test log')
       inspect(fakeLogger.log).wasCalledOnce()
@@ -33,7 +33,7 @@ describe('Logtopus', () => {
       const logger = new Logtopus({})
       logger.setLevel('info')
       const fakeLogger = new FakeLogger()
-      logger.addLogger(fakeLogger)
+      logger.__logger.set('fakeLogger', fakeLogger)
 
       logger.writeLog('sys', 'Listening on port: \u001b[38;5;154m3000\u001b[m')
       inspect(fakeLogger.log).wasCalledOnce()

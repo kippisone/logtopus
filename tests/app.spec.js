@@ -37,15 +37,17 @@ describe('Logtopus', () => {
     it('has a console logger', () => {
       const log = logtopus.getInstance()
       inspect(log).hasKey('__logger')
-      inspect(log.__logger).isArray().hasLength(2)
-      inspect(log.__logger[0].constructor.name).isEql('ConsoleLogger')
+      inspect(log.__logger).isInstanceOf(Map)
+      inspect(log.__logger.size).isEql(2)
+      inspect(log.__logger.get('console').constructor.name).isEql('ConsoleLogger')
     })
 
     it('has a file logger', () => {
       const log = logtopus.getInstance()
       inspect(log).hasKey('__logger')
-      inspect(log.__logger).isArray().hasLength(2)
-      inspect(log.__logger[1].constructor.name).isEql('FileLogger')
+      inspect(log.__logger).isInstanceOf(Map)
+      inspect(log.__logger.size).isEql(2)
+      inspect(log.__logger.get('file').constructor.name).isEql('FileLogger')
     })
   })
 

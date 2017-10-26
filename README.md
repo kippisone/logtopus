@@ -3,7 +3,7 @@ Logtopus
 
 [![Build Status](https://travis-ci.org/Andifeind/logtopus-console-logger.svg?branch=develop)](https://travis-ci.org/Andifeind/logtopus)
 
-Logtopus is a powerful logger for node.js with different transports
+Logtopus is a powerful logger for Node.js with different transports
 
 Built in logger:
 * Console logger using [logtopus-console-logger](https://npmjs.org/packages/logtopus-console-logger)
@@ -17,13 +17,8 @@ Additional logger:
 ## Usage
 
 ```js
-let log = require('logtopus').getLogger('mylogger', loggerConf);
+const log = require('logtopus').getLogger('mylogger');
 log.setLevel('sys');
-log.config({
-  console: {
-    colors: true
-  }
-})
 
 log.warn('My beer is nearly finish!');
 ```
@@ -106,21 +101,42 @@ app.use(logtopus.koa({
 
 `logLevel` Sets current log level
 
-### Logger API
+### Adding custom loggers
 
-A `ConsoleLogger` instance knows two public methods. The `.log()` method is a syncron method, it adds a log statement. The logs will be written to `STDOUT` for all levels, or `STDERR` if log type is `error`
+Logtopus was designed as an extensible logger. You can add a custom logger by creating a logger class and load it into logtopus. The example below shows a minimal logger class.
 
 ```js
-const logger = new ConsoleLogger({
+class LogtopusLogger {
+  constructor(conf) {
+    // conf contains the logger conf
+  }
 
-})
+  log(logmsg) {
+    const date = logmsg.time.toISOString()
+    console.log(`[${date}] ${logmsg.msg}`)
+  }
+}
 
-logger.log({
-  type: 'info',
-  msg: 'Log message',
-  data: [
-    123,
-    { foo: 'bar' }
-  ]
-})
+module.exports = LogtopusLogger
+```
+
+The logger class requires a log method. It takes one argument which contains a log object. The first argument of a log call is the log message, all other arguments are log data.
+
+```js
+logmsg: {
+  type: 'info', // The logtype eg: debug, info, error, sys
+  msg: 'Log message string', // Log message, but without CLI color codes
+  cmsg: 'Colorized log message', // Log message with CLI color codes
+  time: new Date(), // Current date
+  uptime: process.uptime(), // Process uptime in ms
+  data: [] // All other arguments as an array
+}
+```
+
+Now, the class has to be load into logtopus. You can do it by using the .addLogger() method if your logger is a priveate logger. Otherwis publish it on npm by using our logger name conventions. `logtopus-${loggername}-logger`
+Add a new config block into the logtopus config by using `loggername` as namespace and logtopus tries to load the logger.
+
+```js
+const log = logtopus.getLogger('mylogger')
+log.addLogger('loggerName', loggerClass)
 ```

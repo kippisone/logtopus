@@ -14,8 +14,29 @@ if (debugEnabled) {
 const loggerStorage = {}
 
 class LogtopusModule {
-  static getInstance (conf) {
+  /**
+   * Create a logtopus instance.
+   *
+   * If name arg is set logger get sored in the internal storage.
+   * A call to `.getLogger('loggername')` returns this instance then.
+   *
+   * @method  getInstance
+   * @param   {string} name* Logger name
+   * @param   {object} conf Logger conf
+   * @returns {object} Returns a Logtopus instance
+   */
+  static getInstance (name, conf) {
+    if (arguments.length === 1) {
+      conf = name
+      name = null
+    }
+
     const logtopus = new Logtopus(conf)
+
+    if (name) {
+      loggerStorage[name] = new Logtopus(conf)
+    }
+
     return logtopus
   }
 

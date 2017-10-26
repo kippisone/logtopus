@@ -20,14 +20,8 @@ const util = require('util')
  */
 class Logtopus {
   constructor (conf) {
-    conf = conf || {
-      console: {
-        colors: true
-      },
-      file: {
-        logfile: './logs/app.log'
-      }
-    }
+    conf = conf || {}
+    this.config(conf)
 
     this.__conf = conf
     this.__logLevel = conf.level || 3
@@ -58,16 +52,36 @@ class Logtopus {
             : process.env.NODE_ENV === 'test' ? 1
               : 6
 
-    this.__logger = []
+    this.__logger = new Map()
     this.loadLogger()
   }
 
   /**
    * Load logtopus configuration from logtopus.json file
-   * @return {[type]} [description]
+   * @return {object} Returns a logtopus config object
    */
-  getConf () {
+  loadConfig () {
     return superconf('logtopus') || {}
+  }
+
+  config (conf) {
+    if (!conf) {
+      return this.__conf
+    }
+
+    this.__conf = conf
+    if (!conf.logger) {
+      conf.logger = {
+        console: {
+          colors: true
+        },
+        file: {
+          logfile: './logs/app.log'
+        }
+      }
+    }
+
+    return this.__conf
   }
 
   /**
@@ -104,16 +118,15 @@ class Logtopus {
   }
 
   loadLogger () {
-    for (const loggerName of Object.keys(this.__conf)) {
+    for (const loggerName of Object.keys(this.__conf.logger)) {
       if (this.debugMode) {
         console.log('[LOGTOPUS]', `Load ${loggerName} logger`); // eslint-disable-line
       }
 
       try {
         const moduleName = loggerName.replace(/[A-Z]/g, match => '-' + match.toLowerCase())
-        const Logger = superimport(`logtopus-${moduleName}-logger`)
-        const loggerInstance = new Logger(this.__conf[loggerName])
-        this.addLogger(loggerInstance)
+        const LoggerClass = superimport(`logtopus-${moduleName}-logger`)
+        this.addLogger(loggerName, LoggerClass)
       } catch (err) {
         // ignore errors if not debug enabled
         if (this.debugMode) {
@@ -128,21 +141,21 @@ class Logtopus {
    *
    * @method addLogger
    * @param {Object} logger Logger Object
-   * @returns {object} Returns an logger item instance
+   *
+   * @chainable
+   * @returns {object} Returns this value
    */
-  addLogger (logger) {
-    let loggerIndex
-    if (this.__logger.indexOf(logger) === -1) {
-      loggerIndex = this.__logger.push(logger)
+  addLogger (name, LoggerClass) {
+    if (this.__logger.has(name)) {
+      if (this.debugMode) {
+        console.log('[LOGTOPUS]', `Logger ${name} already added: ${err.stack}`); // eslint-disable-line
+      }
+      return this
     }
 
-    return {
-      logger: logger,
-      remove: () => {
-        this.removeLogger(logger)
-      },
-      index: loggerIndex
-    }
+    const loggerInstance = new LoggerClass(this.__conf.logger[name])
+    this.__logger.set(name, loggerInstance)
+    return this
   }
 
   /**
@@ -150,12 +163,13 @@ class Logtopus {
    *
    * @method removeLogger
    * @param {String} loggerName Logger name
+   *
+   * @chainable
+   * @returns {object} Returns this value
    */
-  removeLogger (logger) {
-    let loggerIndex = this.__logger.indexOf(logger)
-    if (loggerIndex !== -1) {
-      this.__logger.splice(loggerIndex, 1)
-    }
+  removeLogger (name) {
+    this.__logger.delete(name)
+    return this
   }
 
   /**
@@ -319,8 +333,21 @@ class Logtopus {
     return this
   }
 
+  /**
+  * Calls flush in all loggers. Should be called before service terminates to avoid losing log data
+   *
+   * @method  flush
+   * @returns {object} Returns a promise
+   */
   flush () {
-    return Promise.all(this.__logger.map(logger => logger.flush()))
+    const flushArr = []
+    this.__logger.forEach(logger => {
+      if (typeof logger.flush === 'function') {
+        flushArr.push(logger.flush())
+      }
+    })
+
+    return Promise.all(flushArr)
   }
 
   /**
