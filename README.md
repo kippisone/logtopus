@@ -64,7 +64,7 @@ Logtopus comes with a logger for Express/Connect.
 
 `logtopus.express()` returns a middleware for Express/Connect. It acepts an optional options object
 
-```
+```js
 let express = require('express');
 let logtopus = require('../logtopus');
 
@@ -86,7 +86,7 @@ Logtopus also supports Koa
 
 `logtopus.koa()` returns a middleware for Koa. It acepts an optional options object
 
-```
+```js
 let koa = require('koa');
 let logtopus = require('../logtopus');
 
