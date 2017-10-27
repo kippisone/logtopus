@@ -21,7 +21,7 @@ module.exports = function (conf) {
       .auto(this.requestId)
       .lime(this.method)
       .grey(this.originalUrl)
-    log.req(reqLog.colorfy(!conf.noColor))
+    log.req(reqLog.colorfy(!!conf.colors))
 
     yield next
 
@@ -49,6 +49,6 @@ module.exports = function (conf) {
       resLog.grey('(').green(parseTime.toString(), 'trim').grey(')')
     }
 
-    log.res(resLog.colorfy(!conf.noColor))
+    log.res(resLog.colorfy(!!conf.colors))
   }
 }

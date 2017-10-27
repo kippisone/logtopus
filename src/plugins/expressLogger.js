@@ -21,7 +21,7 @@ module.exports = function (conf) {
       .auto(req.requestId)
       .lime(req.method)
       .grey(req.originalUrl)
-    log.req(reqLog.colorfy(!conf.noColor))
+    log.req(reqLog.colorfy(!!conf.colors))
 
     let logFn = function () {
       const parseTime = timer.stop()
@@ -52,7 +52,7 @@ module.exports = function (conf) {
         resLog.grey('(').green(parseTime.toString(), 'trim').grey(')')
       }
 
-      log.res(resLog.colorfy(!conf.noColor))
+      log.res(resLog.colorfy(!!conf.colors))
     }
 
     res.on('finish', logFn)
