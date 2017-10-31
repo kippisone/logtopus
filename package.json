@@ -37,7 +37,7 @@
     "colorfy": "^1.0.0",
     "gen-uid": "0.0.2",
     "logtopus-console-logger": "^1.0.0",
-    "logtopus-file-logger": "^1.0.0",
+    "logtopus-file-logger": "^1.0.1",
     "superconf": "^1.0.1",
     "superimport": "^1.0.1",
     "supertime": "^1.0.0"
