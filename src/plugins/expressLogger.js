@@ -3,7 +3,7 @@
 const supertime = require('supertime')
 
 const logtopus = require('../../logtopus')
-const cl = require('colorfy')
+const cf = require('colorfy')
 const log = logtopus.getLogger('express')
 const uid = require('gen-uid')
 
@@ -17,7 +17,7 @@ module.exports = function (conf) {
     req.requestId = req.requestId || uid.token(true).substr(0, 6)
     const timer = supertime.start()
 
-    let reqLog = cl()
+    let reqLog = cf()
       .auto(req.requestId)
       .lime(req.method)
       .grey(req.originalUrl)
@@ -29,7 +29,7 @@ module.exports = function (conf) {
       res.removeListener('finish', logFn)
       res.removeListener('close', logFn)
       res.removeListener('error', logFn)
-      let resLog = cl().auto(req.requestId)
+      let resLog = cf().auto(req.requestId)
 
       // Status code
       if (res.statusCode > 499) {
