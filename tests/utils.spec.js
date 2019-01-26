@@ -12,7 +12,7 @@ describe('Utils', function () {
     let hrtimerStub
 
     beforeEach(function () {
-      sandbox = sinon.sandbox.create()
+      sandbox = sinon.createSandbox()
       hrtimerStub = sandbox.stub(LogUtils, 'hrtime')
     })
 

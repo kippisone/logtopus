@@ -13,7 +13,7 @@ describe('Express plugin', () => {
   let sandbox
 
   beforeEach(() => {
-    sandbox = sinon.sandbox.create()
+    sandbox = sinon.createSandbox()
 
     fakeReq = {
 
