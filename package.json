@@ -1,6 +1,6 @@
 {
   "name": "logtopus",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "Powerful logger for Node.js",
   "main": "logtopus.js",
   "scripts": {
