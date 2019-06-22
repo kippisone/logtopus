@@ -13,7 +13,7 @@ describe('Koa.js plugin', () => {
   let sandbox
 
   beforeEach(() => {
-    sandbox = sinon.sandbox.create()
+    sandbox = sinon.createSandbox()
 
     fakeCtx = {
       on: sandbox.stub(),

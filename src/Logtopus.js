@@ -69,11 +69,12 @@ class Logtopus {
       return this.__conf
     }
 
-    this.__conf = conf
     if (!conf.logger) {
       conf.logger = {
         console: {
-          colors: true
+          colors: true,
+          template: 'default',
+          timestamp: false
         },
         file: {
           logfile: './logs/app.log'
@@ -81,6 +82,7 @@ class Logtopus {
       }
     }
 
+    this.__conf = conf
     return this.__conf
   }
 

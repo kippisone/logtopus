@@ -45,12 +45,13 @@ class LogtopusModule {
    *
    * @method  getLogger
    * @param   {str} name Logger name
+   * @param   {obj} conf Logger conf
    * @returns {obj} Returns a Logtopus instance. It always returns the same instance.
    */
-  static getLogger (name) {
+  static getLogger (name, conf) {
     if (!loggerStorage[name]) {
-      const conf = superconf('logtopus') || {}
-      loggerStorage[name] = new Logtopus(conf)
+      const loggerConf = conf || superconf('logtopus') || {}
+      loggerStorage[name] = new Logtopus(loggerConf)
     }
 
     return loggerStorage[name]
