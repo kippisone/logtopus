@@ -35,12 +35,16 @@ Publish:
     - npm publish
 
 PushGitHub:
-  stages: push-github
+  stage: push-github
   only:
-    - tags
     - develop
     - master
   script:
-    - echo "Push to GitHub"
-    - git remote add github $GITHUB_URL
-    - git push github --follow-tags
+    - echo "Push $CI_PROJECT_NAME to GitHub"
+    - mkdir $HOME/.ssh
+    - cp $CI_ID_RSA $HOME/.ssh/id_rsa
+    - cp $CI_ID_RSA_PUB $HOME/.ssh/id_rsa.pub
+    - chmod 400 $HOME/.ssh/id_*
+    - echo 'ssh -i $HOME/.ssh/id_rsa -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no -v $*' > ssh
+    - chmod +x ssh
+    - GIT_SSH='./ssh' git push github --follow-tags --verbose HEAD:$CI_COMMIT_REF_NAME
