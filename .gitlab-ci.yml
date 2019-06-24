@@ -2,6 +2,7 @@ image: node:8
 stages:
   - test
   - publish
+  - push-github
 
 .test: &test
   stage: test
@@ -32,3 +33,14 @@ Publish:
   script:
     - echo "//registry.npmjs.org/:_authToken=$NPM_AUTH_TOKEN" >> ~/.npmrc
     - npm publish
+
+PushGitHub:
+  stages: push-github
+  only:
+    - tags
+    - develop
+    - master
+  script:
+    - echo "Push to GitHub"
+    - git remote add github $GITHUB_URL
+    - git push github --follow-tags
