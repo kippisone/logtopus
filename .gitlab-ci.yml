@@ -4,12 +4,6 @@ stages:
   - publish
   - push-github
 
-.test: &test
-  stage: test
-  script:
-   - npm install
-   - npm run test
-
 include:
   # - remote: https://gitlab.noname-media.com/nnmedia/gitlabci/raw/master/gitlab-ci-nodejs.yml
   - project: 'nnmedia/gitlabci'
