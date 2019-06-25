@@ -3,6 +3,7 @@ stages:
   - test
   - publish
   - push-github
+  - merge-master
 
 include:
   - project: 'nnmedia/gitlabci'
