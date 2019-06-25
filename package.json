@@ -36,7 +36,7 @@
   "dependencies": {
     "colorfy": "^2.1.0",
     "gen-uid": "0.0.2",
-    "logtopus-console-logger": "^1.1.0",
+    "logtopus-console-logger": "^1.1.2",
     "logtopus-file-logger": "^1.0.1",
     "superconf": "^1.2.2",
     "superimport": "^1.4.0",
