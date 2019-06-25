@@ -5,6 +5,8 @@ Logtopus
 
 Logtopus is a powerful logger for Node.js with different transports
 
+![Logtopus Logger](https://static.noname-media.com/logtopus/logtopus.gif)
+
 Built in logger:
 * Console logger using [logtopus-console-logger](https://npmjs.org/packages/logtopus-console-logger)
 * File logger using [logtopus-file-logger](https://npmjs.org/packages/logtopus-file-logger)
