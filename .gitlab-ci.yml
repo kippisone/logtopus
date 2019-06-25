@@ -5,6 +5,5 @@ stages:
   - push-github
 
 include:
-  # - remote: https://gitlab.noname-media.com/nnmedia/gitlabci/raw/master/gitlab-ci-nodejs.yml
   - project: 'nnmedia/gitlabci'
     file: 'gitlab-ci-nodejs.yml'
