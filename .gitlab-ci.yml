@@ -11,4 +11,4 @@ stages:
    - npm run test
 
 include:
-  remote: https://gitlab.noname-media.com/nnmedia/gitlabci/blob/master/gitlab-ci-nodejs.yml
+  - remote: https://gitlab.noname-media.com/nnmedia/gitlabci/blob/master/gitlab-ci-nodejs.yml
